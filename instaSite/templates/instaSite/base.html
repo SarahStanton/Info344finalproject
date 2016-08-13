@@ -1,0 +1,78 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/images/favicon.ico">
+	<title>Info 344 Final Project</title>
+
+	<!-- Angular
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <!-- Angular Bootstrap 
+	<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.min.js"></script>
+    <!-- UI Router 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+    <!-- Lodash 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.14.1/lodash.min.js"></script>
+    <!-- Custom JS 
+    <script type="text/javascript" src="/javascripts/angularApp.js"></script>
+    -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/6d01efcfaa.js"></script>
+	<!-- Lobster Font -->
+	<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+	<!-- Animate -->
+	<script src="http://code.angularjs.org/1.2.13/angular.js"></script>
+	<script src="http://code.angularjs.org/1.2.13/angular-animate.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body class="container">
+	<header>
+		<div class="nav-div">
+		<nav class="navbar navbar-fixed-top custom-navbar" role="navigation">
+			<div class="container-fluid">
+				<div class="container nav-links">
+				<a class="navbar-brand" href="{% url 'hashtag' %}"><div class="coreSpriteHashtag hidden-xs hidden-sm" aria-hidden="true"></div></a>
+				<div uib-collapse="navCollapsed" class="nav-collapse collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="{% url 'location' %}"><div class="coreSpriteDesktopNavExplore hidden-xs hidden-sm" aria-hidden="true"></div></a>
+						</li>
+						<li>
+							<a href="{% url 'picture_list' %}"><div class="hidden-xs hidden-sm coreSpriteDesktopNavActivity" aria-hidden="true"></div></a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><button class="btn btn-default navbar-btn">Sign In</button></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href=""><i class="fa fa-user hidden-xs hidden-sm" aria-hidden="true"></i> My Account</a></li>
+					</ul>
+				</div>
+				</div>
+			</div>
+		</nav>
+		</div>
+	</header>
+
+	<main class="container">
+		<section role="region">
+			<div class="container h1-container">
+			<h1>Instagram</h1>
+			</div>
+		</section>
+	</main>
+
+	<div>
+		{% block content %}
+		{% endblock %}
+	</div>
+
+</body>
+</html>

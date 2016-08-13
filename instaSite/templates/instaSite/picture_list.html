@@ -1,0 +1,13 @@
+{% extends 'instaSite/base.html' %}
+
+{% block content %}
+
+{% for picture in pictures %}
+	<div>
+		<p> 
+			<img src="{{ picture.link }}" style="width:304px;height:228px;">
+		</p>
+	</div>
+{% endfor %}
+
+{% endblock %}
