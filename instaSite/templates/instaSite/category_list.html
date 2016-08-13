@@ -1,0 +1,13 @@
+{% extends 'instaSite/base.html' %}
+
+{% block content %}
+
+{% for category in categories %}
+    <div>
+        <p> 
+            <a href="{% url 'picture_list' %}">{{ category.folder }}</a>
+        </p>
+    </div>
+{% endfor %}
+
+{% endblock %}
