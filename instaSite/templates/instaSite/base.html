@@ -48,12 +48,16 @@
 							<a href="{% url 'category_list' %}"><div class="hidden-xs hidden-sm coreSpriteDesktopNavActivity" aria-hidden="true"></div></a>
 						</li>
 					</ul>
+					 {% if not user.is_authenticated %}
 					<ul class="nav navbar-nav navbar-right">
 						<li><button class="btn btn-default navbar-btn">Sign In</button></li>
 					</ul>
+					 {% endif %}
+					{% if user.is_authenticated %}
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href=""><i class="fa fa-user hidden-xs hidden-sm" aria-hidden="true"></i> My Account</a></li>
 					</ul>
+					{% endif %}
 				</div>
 				</div>
 			</div>
