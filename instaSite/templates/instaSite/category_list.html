@@ -2,8 +2,10 @@
 
 {% block content %}
 
+<h1><a href="{% url 'category_new' %}"><i class="fa fa-plus" aria-hidden="true"></i><a><h1>
 {% for category in categories %}
     <div>
+
         <p> 
             <a href="{% url 'picture_list' %}">{{ category.folder }}</a>
         </p>

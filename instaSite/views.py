@@ -1,10 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Picture, Category
+from .forms import CategoryForm
+import requests
 
 # Create your views here.
 def category_list(request):
 	categories = Category.objects.all()
 	return render(request, 'instaSite/category_list.html', {'categories': categories})
+
+def category_new(request):
+	if request.method == "POST":
+		form = CategoryForm(request.POST)
+		if form.is_valid():
+			category = form.save(commit=False)
+			category.folder = form.cleaned_data['folder']
+			category.save()
+			return redirect('category_list')
+	else:
+		form = CategoryForm()
+	return render(request, 'instaSite/category_new.html', {'form': form})
 
 def picture_list(request):
 	"""
