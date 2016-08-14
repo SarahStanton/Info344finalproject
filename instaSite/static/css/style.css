@@ -1,0 +1,108 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:#fafafa;
+}
+.nav-div{
+    align-items: stretch;
+    border: 0 solid #000;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+.navbar{
+  align-items: center;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #dbdbdb;
+  max-height: 4.5em;
+
+}
+.nav-links{
+  align-items:center;
+  padding-top:.5em;
+  padding-bottom:.5em;
+}
+a {
+  color: #999;
+}
+h1, h2{
+  font-family: 'Lobster', bold;
+   color:#125688;
+}
+.coreSpriteDesktopNavActivity{
+  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-repeat:no-repeat;
+  background-position: -610px -585px;
+  height: 24px;
+  width:24px;
+}
+.coreSpriteDesktopNavExplore {
+  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-repeat: no-repeat;
+  background-position: -633px -321px;
+  height: 24px;
+  width: 24px;
+}
+.coreSpriteMobileNavProfileActive {
+  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-repeat: no-repeat;
+  background-position: -584px -585px;
+  height: 24px;
+  width: 24px;
+}
+
+.coreSpriteMobileNavProfileInactive {
+  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-repeat: no-repeat;
+  background-position: -636px -585px;
+  height: 24px;
+  width: 24px;
+}
+
+.coreSpriteHashtag {
+  
+  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  
+  background-repeat: no-repeat;
+  
+  background-position: -14px -671px;
+  
+  height: 18px;
+  
+  width: 14px;
+  
+}
+.navbar-brand{
+font-family:'proxima-nova';
+}
+
+.h1-container{
+  text-align:center;
+  padding-top:1em;
+}
+.headingp{
+  padding:1em 1em;
+  margin: 1em 1em;
+}
+.picture{
+ 
+ max-width:30em;
+ max-height:30em;
+}
+
+    align-items: center;
+    height: 64px;
+    padding: 14px 20px;
+
+._22yr2 {
+    background-color: #edeeee;
+    display: block;
+    width: 100%;
+
+    ._jjzlb {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 100%;
+
