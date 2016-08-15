@@ -21,8 +21,7 @@ body {
 }
 .nav-links{
   align-items:center;
-  padding-top:.5em;
-  padding-bottom:.5em;
+
 }
 a {
   color: #999;
@@ -96,6 +95,15 @@ font-family:'proxima-nova';
   position:absolute;
   text-align:center;
   padding-left:3em;
+}
+
+.padding{
+  padding-top:20px;
+  text-align:center;
+}
+.navItems{
+  width:100%;
+  float:right;
 }
 
     align-items: center;

@@ -3,14 +3,14 @@
 
 {% block content %}
 
-<h1><a href="{% url 'category_new' %}"><i class="fa fa-plus" aria-hidden="true"></i><a><h1>
+
+<div class="navItems"><h1><a href="{% url 'category_new' %}"><i class="fa fa-plus" aria-hidden="true"></i><a></h1></div>
+
 {% for category in categories %}
     <div class="col-sm-4">
-
-  
-            <a href="{% url 'picture_list' %}">
+            <br><a href="{% url 'picture_list' %}">
             <img src="{% static 'images/folder.png' %}"></img>
-            <div class="center"><p>{{ category.folder }}<p></div></a>
+            <div class="center"><h3>{{ category.folder }}</h3></div></a>
   
     </div>
 

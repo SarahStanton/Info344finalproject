@@ -5,6 +5,8 @@ import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
+import flickr_api
+from rauth import OAuth1Service
 
 # Create your views here.
 @login_required(login_url='accounts/login/')
@@ -52,5 +54,8 @@ def location(request):
 def logout_view(request):
 	logout(request)
 	return redirect('login')
+
+def login_view():
+	a = flickr_api.auth.AuthHandler()
 
 
