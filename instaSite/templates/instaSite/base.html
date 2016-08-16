@@ -47,22 +47,15 @@
 						<li>
 							<a href="{% url 'category_list' %}"><div class="hidden-xs hidden-sm coreSpriteDesktopNavActivity" aria-hidden="true"></div></a>
 						</li>
-
-						<li><div class="center"><h1>Sortable</h1></div></li>
 					</ul>
-			
-					<ul>
-					</ul>
-					 {% if not user.is_authenticated %}
 					<ul class="nav navbar-nav navbar-right">
-						<li><button class="btn btn-default navbar-btn">Sign In</button></li>
+						<li><a class="btn btn-default navbar-btn" href="/accounts/login/">Sign In</a></li>
 					</ul>
-					 {% endif %}
-					{% if user.is_authenticated %}
+					<!--
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href=""><i class="fa fa-user hidden-xs hidden-sm" aria-hidden="true"></i> My Account</a></li>
 					</ul>
-					{% endif %}
+					-->
 				</div>
 				</div>
 			</div>
@@ -70,6 +63,13 @@
 		</div>
 	</header>
 
+	<main class="container">
+		<section role="region">
+			<div class="container h1-container">
+			<h1>Instagram</h1>
+			</div>
+		</section>
+	</main>
 
 	<div>
 		{% block content %}

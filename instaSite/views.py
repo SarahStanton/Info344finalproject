@@ -1,6 +1,6 @@
 from __future__ import absolute_import, print_function
 from django.shortcuts import redirect, render
-from .models import Picture, Category
+from .models import Picture, Category, User
 from .forms import CategoryForm
 import requests
 from django.contrib.auth.decorators import login_required
@@ -8,38 +8,47 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
 import tweepy
 
-CONSUMER_TOKEN=
-CONSUMER_SECRET=
+CONSUMER_KEY=''
+CONSUMER_SECRET=''
 '''CALLBACK_URL = set it in my twitter acc to link to http://rparesa.info344.com/ ? '''
+
+session=dict()
 
 def auth(request):
     # start the OAuth process, set up a handler with our details
-    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, 'http://stants5.info344.com:8888/placeholder/')
     # direct the user to the authentication url
     # if user is logged-in and authorized then transparently goto the callback URL
     auth_url = oauth.get_authorization_url(True)
     response = HttpResponseRedirect(auth_url)
     # store the request token
-    request.session['unauthed_token_tw'] = (oauth.request_token['oauth_token'], oauth.request_token['oauth_token_secret']) 
+    #request.session['unauthed_token_tw'] = (oauth.request_token['oauth_token'], oauth.request_token['oauth_token_secret']) 
+    #session.set('request_token', oauth.request_token)
+    session['request_token']=oauth.request_token
     return response
 
 def callback(request):
     verifier = request.GET.get('oauth_verifier')
     oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    token = request.session.get('unauthed_token_tw', None)
+    #token = request.session.get('request_token')
+    token = session['request_token']
     # remove the request token now we don't need it
-    request.session.delete('unauthed_token_tw')
-    oauth.set_request_token(token[0], token[1])
-    # get the access token and store
+    #request.session.delete('request_token')
+    del session['request_token']
+    oauth.request_token = token
     try:
         oauth.get_access_token(verifier)
     except tweepy.TweepError:
-        print('Error, failed to get access token')
-    request.session['access_key_tw'] = oauth.access_token
-    request.session['access_secret_tw'] = oauth.access_token_secret
-    response = HttpResponseRedirect(reverse('info'))
+        print ('Error. Failed to get access token')
+
+    u = User(accessToken=oauth.access_token, accessSecret=oauth.access_token_secret)
+    u.save()
+
+  
+    response = HttpResponseRedirect(reverse('category_list'))
     return response
 
 def get_api(request):

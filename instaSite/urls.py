@@ -8,7 +8,8 @@ urlpatterns = [
 	url(r'^location$', views.location, name='location'),
 	url(r'^picture$', views.picture_list, name='picture_list'),
 	url(r'^category/new/$', views.category_new, name="category_new"),
-	url(r'^accounts/login/$', auth_views.login, name='login'),
+	url(r'^accounts/login/$', views.auth, name='login'),
+	url(r'^placeholder/', views.callback, name='callback'),
 	url(r'^accounts/logout/$', views.logout_view, name='logout'),
 	
 ]
