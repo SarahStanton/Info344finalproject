@@ -1,75 +1,47 @@
-from __future__ import absolute_import, print_function
-from django.shortcuts import redirect, render
-from .models import Picture, Category, User
-from .forms import CategoryForm
-import requests
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth import views as auth_views
+import json 
+
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
-from django.core.urlresolvers import reverse
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
+from django.shortcuts import render_to_response
+from social.backends.oauth import BaseOAuth1, BaseOAuth2
+
+from django.apps import AppConfig
+from .models import Picture, Category
+from .forms import CategoryForm
 import tweepy
+import requests
 
-CONSUMER_KEY=''
-CONSUMER_SECRET=''
-'''CALLBACK_URL = set it in my twitter acc to link to http://rparesa.info344.com/ ? '''
 
-session=dict()
+from django.template import RequestContext
+from django.shortcuts import render_to_response, redirect
+from django.contrib.messages.api import get_messages
+from django.contrib.auth import views as auth_views
 
-def auth(request):
-    # start the OAuth process, set up a handler with our details
-    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, 'http://stants5.info344.com:8888/placeholder/')
-    # direct the user to the authentication url
-    # if user is logged-in and authorized then transparently goto the callback URL
-    auth_url = oauth.get_authorization_url(True)
-    response = HttpResponseRedirect(auth_url)
-    # store the request token
-    #request.session['unauthed_token_tw'] = (oauth.request_token['oauth_token'], oauth.request_token['oauth_token_secret']) 
-    #session.set('request_token', oauth.request_token)
-    session['request_token']=oauth.request_token
-    return response
+from django.core.urlresolvers import reverse
 
-def callback(request):
-    verifier = request.GET.get('oauth_verifier')
-    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    #token = request.session.get('request_token')
-    token = session['request_token']
-    # remove the request token now we don't need it
-    #request.session.delete('request_token')
-    del session['request_token']
-    oauth.request_token = token
-    try:
-        oauth.get_access_token(verifier)
-    except tweepy.TweepError:
-        print ('Error. Failed to get access token')
+def logout(request):
+	"""Logs out user"""
+	auth_logout(request)
+	return redirect('/')
 
-    u = User(accessToken=oauth.access_token, accessSecret=oauth.access_token_secret)
-    u.save()
+def create_user(self, email=None, password=None):
+	user.save()
+	return user 
 
-  
-    response = HttpResponseRedirect(reverse('category_list'))
-    return response
+def home(request):
+	""" Home view, displays login mechanism"""
+	if request.user.is_authenticated():
+		return redirect('done')
+	return context()
 
-def get_api(request):
-    # set up and return a twitter api object
-    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    access_key = request.session['access_key_tw']
-    access_secret = request.session['access_secret_tw']
-    oauth.set_access_token(access_key, access_secret)
-    api = tweepy.API(oauth)
-    return api
-def info(request):
-    """
-    display some user info to show we have authenticated successfully
-    """
-    #if check_key(request):
-    api = get_api(request)
-    user = api.me()
-    return render_to_response('twitSent/info.html', {'user' : user})
-    #else:
-    #   return HttpResponseRedirect(reverse('main'))
 
+
+def done(request):
+	"""Login complete view, displays user data"""
+	return context()
 
 # Create your views here.
 
@@ -102,22 +74,28 @@ def picture_list(request):
 		context_dict['category'] = category
 	except:
 		pass
-"""
+	"""
 	pictures = Picture.objects.filter(category=2)
 	return render(request, 'instaSite/picture_list.html', {'pictures': pictures})
 
 
-def hashtag(request):
-    return render(request, 'instaSite/hashtag.html', {})
+def home(request):
+	context = RequestContext(request,{'request': request,'user': request.user})
+	return render_to_response('instaSite/home.html',context_instance=context)
 
 def location(request):
 	return render(request, 'instaSite/location.html', {})
 
+def main(request):
+	return render(request, 'instaSite/home.html', {})
 
-def logout_view(request):
-	logout(request)
-	return redirect('login')
+
 '''
+def logout(request):
+	logout(request)
+	return redirect('info')
+
+
 def login_view():
 	a = flickr_api.auth.AuthHandler()
 '''
