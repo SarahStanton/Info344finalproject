@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<main class="container>
+<main class="container">
 <section role="region">
 <div class="h1-container">
 		<h2>Search <i class="fa fa-globe" aria-hidden="true"></i></h2>
@@ -10,10 +10,18 @@
 <br>
 		<section role="region">
 			<div class="search input-group">
-				<input class="form-control" type="text" name="search" ng-model="searchTerm" placeholder="Search by location...">
+				<input class="form-control" type="text" name="search" placeholder="Search...">
 				<span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
 			</div>
 		</section>
+
+		<section>
+		{% for result in results %}
+			<div class="col-sm-4">
+			<br><img src=" {{result.url }}" height="350px" width="350px" ></img>
+			</div>
+		{% endfor %}
+
 	</section>
 </main>
 

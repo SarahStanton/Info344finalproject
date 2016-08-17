@@ -9,12 +9,12 @@
 </div><br>
 <main>
 		<section role="region">
-		<!--
+	
 		{% if user %}
-			<a href="https://twitter.com/logout">Logout</a>
-		 {% else %}-->
+			<a href="/logout">Logout</a>
+		 {% else %}
    			<a href="{% url 'social:begin' 'twitter' %}">Log in using Twitter</a>
-		<!--{% endif %}-->
+		{% endif %}
 		</section>
 </main>
 
