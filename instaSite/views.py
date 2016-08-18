@@ -1,6 +1,7 @@
 import json 
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
@@ -9,7 +10,7 @@ from social.backends.oauth import BaseOAuth1, BaseOAuth2
 
 from django.apps import AppConfig
 from .models import Picture, Category, User
-from .forms import CategoryForm
+from .forms import CategoryForm, SearchForm
 import tweepy
 from tweepy.auth import OAuthHandler
 import requests
@@ -127,10 +128,42 @@ def home(request):
 
 
 
-def location(request):
+def get_search(request):
+	if request.method == "POST":
+		form = SearchForm(request.POST)
+		if form.is_valid():
+			search = form.save(commit=False)
+			search.topic = form.cleaned_data['topic']
+			search.save()
+
+			
+			#return redirect('results', pk=search.pk)
+
+			#search = Search.objects.get(pk=pk)
+			api = get_api(request)
+			#for x in range(0, 3):
+			results = api.search(search.topic, count=100)
+			tweets_images=[]
+			for i in results:
+				try:
+					if i.entities['media'][0]['type']=='photo':
+						tweets_images.append({'url':i.entities['media'][0]['media_url'],'id':i.id})
+						id_images.append(i.id)
+				except:
+					pass
+			return render(request, 'instaSite/result_list.html', {'results': tweets_images})
+
+
+	else:
+		form = SearchForm()
+	return render(request, 'instaSite/location.html', {'form': form})
+		
+'''
+def results(request, pk):
+	search = Search.objects.get(pk=pk)
 	api = get_api(request)
 	#for x in range(0, 3):
-	results = api.search('dog', count=100)
+	results = api.search(search, count=100)
 	tweets_images=[]
 	for i in results:
 		try:
@@ -139,8 +172,8 @@ def location(request):
 				id_images.append(i.id)
 		except:
 			pass
-	return render(request, 'instaSite/location.html', {'results': tweets_images})
-
+	return render(request, 'instaSite/result_list.html', {'results': tweets_images})
+'''
 
 def picture_add(request):
 	if request.method == "POST":
@@ -149,7 +182,7 @@ def picture_add(request):
 			picture = form.save(commit=False)
 			category.folder = form.cleaned_data['picture']
 			category.save()
-			return redirect('location')
+			return redirect('results')
 		else:
 			form = PictureForm()
 	return render(request, 'instaSite/category_new.html', {'form': form})
