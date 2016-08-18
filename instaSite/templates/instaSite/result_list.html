@@ -2,16 +2,19 @@
 
 {% block content %}
 
+<div class="navItems"><h1><a href="{% url 'category_new' %}"><i class="fa fa-plus" aria-hidden="true"></i><a></h1></div>
 <main class="container">
 <section role="region">
 <div class="h1-container">
-		<h2>Search <i class="fa fa-globe" aria-hidden="true"></i></h2>
+		<h3>You searched for... </h3>
+		<h2>{{ string }}</h2>
+
 </div>
 <br>
 	<section>
 		{% for result in results %}
 			<div class="col-sm-4">
-			<br><img src=" {{result.url }}" height="350px" width="350px" ></img>
+			<br><a href="{% url 'picture_detail' %}"><img src=" {{ result.url }}" height="350px" width="350px" ></img></a>
 			</div>
 		{% endfor %}
 

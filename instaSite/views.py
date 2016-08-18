@@ -10,7 +10,7 @@ from social.backends.oauth import BaseOAuth1, BaseOAuth2
 
 from django.apps import AppConfig
 from .models import Picture, Category, User
-from .forms import CategoryForm, SearchForm
+from .forms import CategoryForm, SearchForm, SaveForm
 import tweepy
 from tweepy.auth import OAuthHandler
 import requests
@@ -103,20 +103,6 @@ def category_new(request):
 	return render(request, 'instaSite/category_new.html', {'form': form})
 
 
-def picture_list(request):
-	"""
-	category_name = category_url.replace(category_url, '_', ' ')
-	context_dict = {'category_name': category_name}
-	try: 
-		category = Category.objects.get(folder=category_name)
-		picture = Picture.objects.filter(category=category)
-		context_dict['picture'] = picture
-		context_dict['category'] = category
-	except:
-		pass
-	"""
-	pictures = Picture.objects.filter(category=2)
-	return render(request, 'instaSite/picture_list.html', {'pictures': pictures})
 
 
 
@@ -142,7 +128,8 @@ def get_search(request):
 			#search = Search.objects.get(pk=pk)
 			api = get_api(request)
 			#for x in range(0, 3):
-			results = api.search(search.topic, count=100)
+			string = "#" + search.topic
+			results = api.search(string, count=100)
 			tweets_images=[]
 			for i in results:
 				try:
@@ -151,29 +138,44 @@ def get_search(request):
 						id_images.append(i.id)
 				except:
 					pass
-			return render(request, 'instaSite/result_list.html', {'results': tweets_images})
+			return render(request, 'instaSite/result_list.html', {'results': tweets_images, 'string':string})
 
 
 	else:
 		form = SearchForm()
 	return render(request, 'instaSite/location.html', {'form': form})
-		
+
 '''
-def results(request, pk):
-	search = Search.objects.get(pk=pk)
-	api = get_api(request)
-	#for x in range(0, 3):
-	results = api.search(search, count=100)
-	tweets_images=[]
-	for i in results:
-		try:
-			if i.entities['media'][0]['type']=='photo':
-				tweets_images.append({'url':i.entities['media'][0]['media_url'],'id':i.id})
-				id_images.append(i.id)
-		except:
-			pass
-	return render(request, 'instaSite/result_list.html', {'results': tweets_images})
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/post_detail.html', {'post': post})
 '''
+
+
+def picture_detail(request, pk):
+	categories = Category.objects.all()
+	if request.method == "POST":
+		form = SaveForm(request.POST)
+		if form.is_valid():
+			pictures = form.save(commit=False)
+			pictures.link = form.cleaned_data['link']
+			pictures.category = form.cleaned_data['category']
+			pictures.save()
+			return redirect('picture_list', folder=picture.category)
+	else:
+		form = SaveForm()
+	return render(request, 'instaSite/picture_detail.html', {'categories': categories})
+
+
+def picture_list(request, folder):
+	pictures = Picture.objects.all()
+	results = []
+	for i in pictures:
+		if i.folder == folder:
+			results.append({'url':i.link, 'category':i.category})
+
+	return render(request, 'instaSite/picture_list.html', {'pictures': results})
+
 
 def picture_add(request):
 	if request.method == "POST":
@@ -186,6 +188,7 @@ def picture_add(request):
 		else:
 			form = PictureForm()
 	return render(request, 'instaSite/category_new.html', {'form': form})
+
 
 def main(request):
 	return render(request, 'instaSite/home.html', {})

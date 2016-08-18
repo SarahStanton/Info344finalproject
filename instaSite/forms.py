@@ -13,3 +13,8 @@ class SearchForm(forms.ModelForm):
 		fields = ('topic',)
 
 
+class SaveForm(forms.ModelForm):
+	class Meta:
+		model = Picture
+		fields = ('link', 'category',)
+
