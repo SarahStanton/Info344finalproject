@@ -16,5 +16,5 @@ class SearchForm(forms.ModelForm):
 class SaveForm(forms.ModelForm):
 	class Meta:
 		model = Picture
-		fields = ('link', 'category',)
+		fields = ('category',)
 

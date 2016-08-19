@@ -9,8 +9,7 @@ class User(models.Model):
 	accessSecret = models.CharField(max_length=300, null=True)
 
 	def __str__(self):
-		return self.username
-
+		return self.username    
 
 class Category(models.Model):
 	folder = models.CharField(max_length=100, null=True)
@@ -26,6 +25,7 @@ class Search(models.Model):
 		return self.topic
 
 class Picture(models.Model):
+	primary = models.IntegerField(null=True)
 	link = models.URLField(max_length=300, null=True)
 	category = models.ForeignKey(Category, null=True)
 	search = models.ForeignKey(Search, null=True)

@@ -6,14 +6,14 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render_to_response
-from social.backends.oauth import BaseOAuth1, BaseOAuth2
 
 from django.apps import AppConfig
-from .models import Picture, Category, User
+from .models import Picture, Category, User, Search
 from .forms import CategoryForm, SearchForm, SaveForm
 import tweepy
 from tweepy.auth import OAuthHandler
 import requests
+import rest_framework
 
 
 from django.template import RequestContext
@@ -22,6 +22,13 @@ from django.contrib.messages.api import get_messages
 from django.contrib.auth import views as auth_views
 
 
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from instaSite.serializers import UserSerializer, CategorySerializer, PictureSerializer, SearchSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+from rest_framework.decorators import api_view
 
 auth = tweepy.OAuthHandler(settings.SOCIAL_AUTH_TWITTER_KEY , settings.SOCIAL_AUTH_TWITTER_SECRET)
 session = {}
@@ -68,15 +75,7 @@ def logout(request):
 
 def create_user(self, email=None, password=None):
 	user.save()
-	return user 
-
-#
-##	def home(request):
-#	 Home view, displays login mechanism
-#	if request.user.is_authenticated():
-#		return redirect('done')
-#	return context()
-
+	return user
 
 
 def done(request):
@@ -102,10 +101,6 @@ def category_new(request):
 		form = CategoryForm()
 	return render(request, 'instaSite/category_new.html', {'form': form})
 
-
-
-
-
 def home(request):
 
 	context = RequestContext(request, {'request': request,'user': request.user})
@@ -116,15 +111,12 @@ def home(request):
 
 def get_search(request):
 	if request.method == "POST":
-		form = SearchForm(request.POST)
-		if form.is_valid():
-			search = form.save(commit=False)
-			search.topic = form.cleaned_data['topic']
+		searchForm = SearchForm(request.POST)
+		if searchForm.is_valid():
+			search = searchForm.save(commit=False)
+			search.topic = searchForm.cleaned_data['topic']
 			search.save()
-
-			
-			#return redirect('results', pk=search.pk)
-
+		
 			#search = Search.objects.get(pk=pk)
 			api = get_api(request)
 			#for x in range(0, 3):
@@ -135,36 +127,33 @@ def get_search(request):
 				try:
 					if i.entities['media'][0]['type']=='photo':
 						tweets_images.append({'url':i.entities['media'][0]['media_url'],'id':i.id})
-						id_images.append(i.id)
+						Picture.objects.create(link=i.entities['media'][0]['media_url'], primary=i.id)
+						#Picture.objects.filter(link=i.entities['media'][0]['media_url']).update(id=i.id)
 				except:
 					pass
 			return render(request, 'instaSite/result_list.html', {'results': tweets_images, 'string':string})
-
-
 	else:
-		form = SearchForm()
-	return render(request, 'instaSite/location.html', {'form': form})
-
-'''
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
-'''
+		searchForm = SearchForm()
+	return render(request, 'instaSite/location.html', {'searchForm': searchForm})
 
 
 def picture_detail(request, pk):
 	categories = Category.objects.all()
+	all_pictures = Picture.objects.all()
 	if request.method == "POST":
 		form = SaveForm(request.POST)
 		if form.is_valid():
+			p = Picture.objects.get(primary=pk)
+			p.update(category=form.cleaned_data['category'])
+			'''
 			pictures = form.save(commit=False)
-			pictures.link = form.cleaned_data['link']
 			pictures.category = form.cleaned_data['category']
 			pictures.save()
-			return redirect('picture_list', folder=picture.category)
+			'''
+			return redirect('picture_list', folder=pictures.category)
 	else:
 		form = SaveForm()
-	return render(request, 'instaSite/picture_detail.html', {'categories': categories})
+	return render(request, 'instaSite/picture_detail.html', {'form':form, 'categories': categories, 'id':pk})
 
 
 def picture_list(request, folder):
@@ -203,4 +192,52 @@ def logout(request):
 def login_view():
 	a = flickr_api.auth.AuthHandler()
 '''
+
+
+@api_view(['GET', 'DELETE', ])
+def category_api(request, pk, format=None):
+    try:
+        category = Category.objects.get(pk = pk)
+    except Category.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    if request.method == "GET":
+        serializer = CategorySerializer(categorys, many = True)
+        return Response(serializer.data)
+    elif request.method == "DELETE":
+        category.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST', ])
+def api_view(request, format=None):
+    if request.method == "GET":
+        users = User.objects.all()
+        serializer = UserSerializer(users, many = True)
+        return Response(serializer.data)
+    elif request.method == "POST":
+        serializer = UsesrSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+    else:
+        return Response(status = status.HTTP_400_BAD_REQUEST)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class PictureViewSet(viewsets.ModelViewSet):
+    queryset = Picture.objects.all()
+    serializer_class = PictureSerializer
+
+class SearchViewSet(viewsets.ModelViewSet):
+    queryset = Search.objects.all()
+    serializer_class = SearchSerializer
 
