@@ -8,7 +8,7 @@
 
 {% for category in categories %}
     <div class="col-sm-4">
-            <br><a href="{% url 'picture_list' %}">
+            <br><a href="{% url 'picture_list' pk=category.id %}">
             <img src="{% static 'images/folder.png' %}"></img>
             <div class="center"><h3>{{ category.folder }}</h3></div></a>
   

@@ -14,7 +14,7 @@
 	<section>
 		{% for result in results %}
 			<div class="col-sm-4">
-			<br><a href="{% url 'picture_detail' %}"><img src=" {{ result.url }}" height="350px" width="350px" ></img></a>
+			<br><a href="{% url 'picture_detail' pk=result.id %}"><img src=" {{ result.url }}" height="350px" width="350px" ></img></a>
 			</div>
 		{% endfor %}
 
