@@ -1,5 +1,5 @@
-from django.contrib.auth.models import User, Category, Picture, Search
-from .models import Category, Picture, Search, User
+from django.contrib.auth.models import User
+from instaSite.models import Category, Picture, Search, User
 from rest_framework import serializers
 
 class CategorySerialier(serializers.HyperlinkedModelSerializer):
@@ -21,6 +21,3 @@ class UserSerialier(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = User
 		fields = ('username', 'accessToken', 'accessSecret')
-
-
-
