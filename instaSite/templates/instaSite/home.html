@@ -1,22 +1,31 @@
 {% extends 'instaSite/base.html' %}
 
 {% block content %}
-
+<section class="container">
 <div class="h1-container">
-		<h1>About</h1>  
-
-
-</div><br>
+		<div class="backgrounds" style="padding-top:0; margin-top:0">
+		 <span class="letter" data-letter="A">A</span>
+  		<span class="letter" data-letter="B">B</span>
+  		<span class="letter" data-letter="O">O</span>
+  		<span class="letter" data-letter="U">U</span>
+		<span class="letter" data-letter="T">T</span>
+		</div>
+  		<br>
+			{% if user and not user.is_anonymous %}
+       <button type="button" class="btn btn-success"><a href="/api/">Api Access</a></button>
+			{% endif %}
+		</div>
+</section>
+<br>
 <main>
-		<section role="region">
-	
-		{% if user %}
-			<a href="/logout">Logout</a>
-		 {% else %}
-   			<a href="{% url 'social:begin' 'twitter' %}">Log in using Twitter</a>
-		{% endif %}
-		</section>
+		<div class="container">
+		<h3>Sortable is made by <a href="">Sarah Stanton</a> and <a href="rachelparesa.com">Rachel Paresa</a> as a final project for Info 344.</h3>
+<br>
+		<h5>Built on Django with help from MySQL, Bootstrap, and AWS Services. Pictures come from the Twitter API.</h5>
+		</div>
 </main>
 
+
+</div>
 
 {% endblock %}

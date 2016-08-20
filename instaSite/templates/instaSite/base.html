@@ -38,7 +38,7 @@
 		<nav class="navbar navbar-fixed-top custom-navbar" role="navigation">
 			<div class="container-fluid">
 				<div class="container nav-links">
-				<a class="navbar-brand" href="{% url 'home' %}"><div class="coreSpriteHashtag hidden-xs hidden-sm" aria-hidden="true"></div></a>
+				<div style="padding-top:0px"><a class="navbar-brand" href="{% url 'home' %}"><div class="coreSpriteHashtag hidden-xs hidden-sm" aria-hidden="true"></div></a></div>
 				<div uib-collapse="navCollapsed" class="nav-collapse collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li>
@@ -47,9 +47,20 @@
 						<li>
 							<a href="{% url 'category_list' %}"><div class="hidden-xs hidden-sm coreSpriteDesktopNavActivity" aria-hidden="true"></div></a>
 						</li>
-						<li>	<h1>Sortable</h1></li>
+						<li class="h1-container" style="padding-top: 0px; margin-top=0px; margin-left:10px">
+							<h1>Sortable</h1>
+						</li>
+						<li class="pull-right" style="padding-top:10px; margin-left:775px">
+							{% if user and not user.is_anonymous %}
+				       			<button type="button" class="btn btn-warning"><a href="/logout">Logout</a></button>
+				   			{% else %}
+				   				<button type="button" class="btn btn-info"><a href="{% url 'social:begin' 'twitter' %}">Log in using Twitter</a></button>
+							{% endif %}
+						</li>
 					</ul>
 				</div>
+				
+		
 				</div>
 			</div>
 		</nav>

@@ -17,9 +17,9 @@ from django.conf.urls import patterns, include, url
 from instaSite import views
 from django.contrib import admin
 
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-	url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'', include('instaSite.urls')),
 ]
+
+#   url('', include('social.apps.django_app.urls', namespace='social')),
