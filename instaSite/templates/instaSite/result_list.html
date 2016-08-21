@@ -2,14 +2,11 @@
 
 {% block content %}
 
-<div class="navItems"><h1><a href="{% url 'category_new' %}"><i class="fa fa-plus" aria-hidden="true"></i><a></h1></div>
-<main class="container">
-<section role="region">
-<div class="h1-container">
+<div class="container" style="text-align:center">
 		<h3>You searched for... </h3>
 		<h2>{{ string }}</h2>
 
-</div>
+
 <br>
 	<section>
 		{% for result in results %}
@@ -19,6 +16,7 @@
 		{% endfor %}
 
 	</section>
-</main>
+	</div>
+
 
 {% endblock %}

@@ -119,7 +119,7 @@ def get_search(request):
 			#search = Search.objects.get(pk=pk)
 			api = get_api(request)
 			#for x in range(0, 3):
-			strings = search.topic
+			strings = '#' + search.topic
 			results = api.search(q=strings, count=100)
 			tweets_images=[]
 			for i in results:
