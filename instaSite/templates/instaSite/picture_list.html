@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<div><h1><a href="{% url 'category_list' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a></h1></div>
+<div ><h1><a href="{% url 'category_list' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a></h1></div>
 
 
 
 		{% for picture in pictures %}
-			<div class="col-sm-4">
+			<div class="col-sm-4" >
 				<p> 
 					<img src="{{ picture.link }}" style="width:304px;height:228px;">
 				</p>

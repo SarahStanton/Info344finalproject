@@ -1,39 +1,231 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="/images/favicon.ico">
-	<title>Info 344 Final Project</title>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="icon" type="image/png" href="/images/favicon.ico">
+      <title>Info 344 Final Project</title>
+      <!-- Angular
+         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+         <!-- Angular Bootstrap 
+         <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.min.js"></script>
+         <!-- UI Router 
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+         <!-- Lodash 
+         <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.14.1/lodash.min.js"></script>
+         <!-- Custom JS 
+         <script type="text/javascript" src="/javascripts/angularApp.js"></script>
+         -->
+      <!-- Bootstrap -->
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <!-- Font Awesome -->
+      <script src="https://use.fontawesome.com/6d01efcfaa.js"></script>
+      <!-- Lobster Font -->
+      <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+      <!-- Animate -->
+      <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
+      <script src="http://code.angularjs.org/1.2.13/angular-animate.js"></script>
+      <!-- Custom CSS -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+      <style>
+      body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:#fafafa;
+}
 
-	<!-- Angular
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
-    <!-- Angular Bootstrap 
-	<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.min.js"></script>
-    <!-- UI Router 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
-    <!-- Lodash 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.14.1/lodash.min.js"></script>
-    <!-- Custom JS 
-    <script type="text/javascript" src="/javascripts/angularApp.js"></script>
-    -->
+.navbar{
+  align-items: center;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #dbdbdb;
+  max-height: 4.5em;
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <script src="https://use.fontawesome.com/6d01efcfaa.js"></script>
-	<!-- Lobster Font -->
-	<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-	<!-- Animate -->
-	<script src="http://code.angularjs.org/1.2.13/angular.js"></script>
-	<script src="http://code.angularjs.org/1.2.13/angular-animate.js"></script>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-</head>
-<body class="container">
-	<header>
+}
+.nav-links{
+  align-items:center;
+
+}
+a {
+  color: #999;
+}
+h1, h2{
+  font-family: 'Lobster', bold;
+   color:#125688;
+}
+.coreSpriteDesktopNavActivity{
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-repeat:no-repeat;
+  background-position: -610px -585px;
+  height: 24px;
+  width:24px;
+}
+.coreSpriteDesktopNavExplore {
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-repeat: no-repeat;
+  background-position: -633px -321px;
+  height: 24px;
+  width: 24px;
+}
+.coreSpriteMobileNavProfileActive {
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-repeat: no-repeat;
+  background-position: -584px -585px;
+  height: 24px;
+  width: 24px;
+}
+
+.coreSpriteMobileNavProfileInactive {
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-repeat: no-repeat;
+  background-position: -636px -585px;
+  height: 24px;
+  width: 24px;
+}
+
+.coreSpriteHashtag {
+  
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  
+  background-repeat: no-repeat;
+  
+  background-position: -14px -671px;
+  
+  height: 18px;
+  
+  width: 14px;
+  
+}
+.navbar-brand{
+font-family:'proxima-nova';
+}
+
+.h1-container{
+  text-align:center;
+  padding-top:1em;
+}
+.headingp{
+  padding:1em 1em;
+  margin: 1em 1em;
+}
+.picture{
+ 
+ max-width:30em;
+ max-height:30em;
+}
+
+.center{
+  position:absolute;
+  text-align:center;
+  padding-left:3em;
+}
+
+.padding{
+  padding-top:20px;
+  text-align:center;
+}
+
+.paddingT{
+  padding-top:2em;
+}
+button > a{
+  color:white;
+}
+
+
+
+@import url(http://fonts.googleapis.com/css?family=Lato:900);
+*, *:before, *:after{
+  box-sizing:border-box;
+}
+body{
+  font-family: 'Lato', sans-serif;
+}
+div.foo{
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+.letter{
+  display: inline-block;
+  font-weight: 900;
+  font-size: 8em;
+  margin: 0.2em;
+  position: relative;
+  color: #00B4F1;
+  transform-style: preserve-3d;
+  perspective: 400;
+  z-index: 1;
+}
+.letter:before, .letter:after{
+  position:absolute;
+  content: attr(data-letter);
+  transform-origin: top left;
+  top:0;
+  left:0;
+}
+.letter, .letter:before, .letter:after{
+  transition: all 0.3s ease-in-out;
+}
+.letter:before{
+  color: #fff;
+  text-shadow: 
+    -1px 0px 1px rgba(255,255,255,.8),
+    1px 0px 1px rgba(0,0,0,.8);
+  z-index: 3;
+  transform:
+    rotateX(0deg)
+    rotateY(-15deg)
+    rotateZ(0deg);
+}
+.letter:after{
+  color: rgba(0,0,0,.11);
+  z-index:2;
+  transform:
+    scale(1.08,1)
+    rotateX(0deg)
+    rotateY(0deg)
+    rotateZ(0deg)
+    skew(0deg,1deg);
+}
+.letter:hover:before{
+  color: #fafafa;
+  transform:
+    rotateX(0deg)
+    rotateY(-40deg)
+    rotateZ(0deg);
+}
+.letter:hover:after{
+  transform:
+    scale(1.08,1)
+    rotateX(0deg)
+    rotateY(40deg)
+    rotateZ(0deg)
+    skew(0deg,22deg);
+}
+
+.backgrounds{
+  background-color:gray;
+}
+
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: -webkit-radial-gradient(center top, circle farthest-corner, #FFFFFF 0%, #D8DFE9 100%);
+  background-image: radial-gradient(circle farthest-corner at center top, #FFFFFF 0%, #D8DFE9 100%);
+  overflow: hidden;
+}
+</style>
+   </head>
+   <body class="container">
+      <header>
+        	<header>
 		<div class="nav-div">
 		<nav class="navbar navbar-fixed-top custom-navbar" role="navigation">
 			<div class="container-fluid nav-links">
@@ -66,11 +258,11 @@
 				
 			
 		</nav>
-		</div>
-	</header>
-<div class="container">
-	{% block content %}
-		{% endblock %}
-		</div>
-</body>
+      </header>
+
+      <div class="container">
+         {% block content %}
+         {% endblock %}
+      </div>
+   </body>
 </html>

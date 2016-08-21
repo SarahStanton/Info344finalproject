@@ -23,21 +23,21 @@ h1, h2{
    color:#125688;
 }
 .coreSpriteDesktopNavActivity{
-  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
   background-repeat:no-repeat;
   background-position: -610px -585px;
   height: 24px;
   width:24px;
 }
 .coreSpriteDesktopNavExplore {
-  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
   background-repeat: no-repeat;
   background-position: -633px -321px;
   height: 24px;
   width: 24px;
 }
 .coreSpriteMobileNavProfileActive {
-  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
   background-repeat: no-repeat;
   background-position: -584px -585px;
   height: 24px;
@@ -45,7 +45,7 @@ h1, h2{
 }
 
 .coreSpriteMobileNavProfileInactive {
-  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
   background-repeat: no-repeat;
   background-position: -636px -585px;
   height: 24px;
@@ -54,7 +54,7 @@ h1, h2{
 
 .coreSpriteHashtag {
   
-  background-image: url(//instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
+  background-image: url(https://instagramstatic-a.akamaihd.net/h1/sprites/core/f60ff7.png);
   
   background-repeat: no-repeat;
   
@@ -100,7 +100,6 @@ font-family:'proxima-nova';
 button > a{
   color:white;
 }
-
 
 
 

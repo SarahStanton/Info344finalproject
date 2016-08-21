@@ -8,9 +8,8 @@
 {% for category in categories %}
     <div class="col-sm-4">
             <br><a href="{% url 'picture_list' pk=category.id %}">
-            <img src="{% static 'images/folder.png' %}"></img>
-            <div class="center"><h3>{{ category.folder }}</h3></div></a>
-  
+            <img src="http://th.seaicons.com/wp-content/uploads/2015/09/Folder-icon-150x150.png" height="250px" width="250px"></img>
+           <div style="text-align:center; padding-bottom:.5em"><h1>{{ category.folder }}</h1></a></div>
     </div>
 
 {% endfor %}

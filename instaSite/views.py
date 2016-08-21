@@ -70,8 +70,8 @@ def get_api(request):
 
 
 def logout(request):
-    auth_logout(request)
-    return redirect('/')
+	auth_logout(request)
+	return redirect('/')
 
 def create_user(self, email=None, password=None):
 	user.save()
@@ -105,6 +105,8 @@ def home(request):
 	context = RequestContext(request, {'request': request,'user': request.user})
 
 	return render_to_response('instaSite/home.html',context_instance=context)
+
+
 
 
 
