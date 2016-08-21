@@ -1,14 +1,14 @@
 {% extends 'instaSite/base.html' %}
 
 {% block content %}
-<div  style="padding-top:4em;margin-top:4em">
-<div class="container h1-container" style="text-align:center">
+<div style="padding-top:30em;margin-top:30em">
+<div class="container h1-container" style="text-align:center; padding-top:90em;margin-top:90em">
 		<h3>You searched for... </h3>
 		<h2>{{ string }}</h2>
 
 
 <br>
-	<section>
+	<section style="max-height:500em">
 		{% for result in results %}
 			<div class="col-sm-4">
 			<br><a href="{% url 'picture_detail' pk=result.id %}"><img src=" {{ result.url }}" height="350px" width="350px" ></img></a>
